@@ -132,7 +132,13 @@ def main():
     workflow_table.add_row(["Days Left in Cycle: " + str(billing_days_left), "", "", "", ""])
     print(summary_table)
     print(workflow_table)
-    print(summary_table.get_json_string())
+
+    # output files as json
+    with open("summary.json", "w") as outfile:
+        outfile.write(summary_table.get_json_string())
+    with open("workflow.json", "w") as outfile:
+        outfile.write(wrokflow_table.get_json_string())
+
     # we should throw an error if we are running out of minutes as a warning
     # minutes buffer is how low the minutes should get before failing and raising an alarm
     if remaining_minutes < int(raise_alarm_remaining_minutes):
