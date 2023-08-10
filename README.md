@@ -108,9 +108,9 @@ in the prettyprint formatted ASCII tables like this:
 The action calls GitHub REST API endpoints to get the required information, and then prettyprint for formatting.
 
 To get the number of repos, it
-calls [GitHub Organisation API](https://docs.github.com/en/rest/orgs/orgs#get-an-organization). For information on each
+calls [GitHub Organization API](https://docs.github.com/en/rest/orgs/orgs#get-an-organization). For information on each
 repo, it
-calls [GitHub List Organisational Repos API](https://docs.github.com/en/rest/repos/repos#list-organization-repositories)
+calls [GitHub List Organizational Repos API](https://docs.github.com/en/rest/repos/repos#list-organization-repositories)
 . For repository workflows, it
 calls [GitHub List Repository Workflow API](https://docs.github.com/en/rest/actions/workflows#list-repository-workflows)
 . For workflow usage, it
@@ -125,7 +125,7 @@ calls [GitHub Get shared storage billing for an organization API](https://docs.g
 
 ## Prerequisites to Run as an GH Action
 
-- an organisation or repo secret called `ORGANISATION` with the value of your organisation
+- an organization or repo secret called `ORGANIZATION` with the value of your organization
 - a secret called `GITHUBAPIKEY` with the value being a personal access token (PAT) with scope `read:org` for reading
   public repos and `repo:full` for reading private repos.
 
@@ -152,7 +152,7 @@ jobs:
         uses: fergusmacd/github-action-usage@daff7e5517914546a1e39fcc22f476e1471853f6 # use a commit SHA
         # pass user input as arguments
         with:
-          organisation: ${{secrets.ORGANISATION}}
+          organization: ${{secrets.ORGANIZATION}}
           gitHubAPIKey: ${{secrets.GITHUBAPIKEY}} # default token in GitHub Workflow
           loglevel: error # not required, change to debug if misbehaving
           raisealarmremainingminutes: 100 # not required, defaults to 100
@@ -172,7 +172,7 @@ pip install -r requirements.txt
 # default is warning, see the action.yaml for further details
 # GHA environment variables prepend INPUT_ to values passed in
 export INPUT_LOGLEVEL=debug|info|warning|error
-export INPUT_ORGANISATION="myorg"
+export INPUT_ORGANIZATION="myorg"
 export INPUT_GITHUBAPIKEY="***"
 export INPUT_RAISEALARMREMAININGMINUTES="150"
 export INPUT_SKIPREPOSWITHOUTUSAGE="false"
@@ -190,11 +190,11 @@ For Docker, run from the root directory:
 docker build -t gha-billable-usage .
 # GHA environment variables prepend INPUT_ to values passed in
 export INPUT_LOGLEVEL=debug|info|warning|error
-export INPUT_ORGANISATION="myorg"
+export INPUT_ORGANIZATION="myorg"
 export INPUT_GITHUBAPIKEY="***"
 export INPUT_RAISEALARMREMAININGMINUTES="150"
 export INPUT_SKIPREPOSWITHOUTUSAGE="false"
-docker run -v $PWD:/app/results -e INPUT_RAISEALARMREMAININGMINUTES=${INPUT_RAISEALARMREMAININGMINUTES} -e INPUT_LOGLEVEL=${INPUT_LOGLEVEL} -e INPUT_ORGANISATION=${INPUT_ORGANISATION} -e INPUT_GITHUBAPIKEY=${INPUT_GITHUBAPIKEY} -e INPUT_SKIPREPOSWITHOUTUSAGE=${INPUT_SKIPREPOSWITHOUTUSAGE} -it gha-billable-usage
+docker run -v $PWD:/app/results -e INPUT_RAISEALARMREMAININGMINUTES=${INPUT_RAISEALARMREMAININGMINUTES} -e INPUT_LOGLEVEL=${INPUT_LOGLEVEL} -e INPUT_ORGANIZATION=${INPUT_ORGANIZATION} -e INPUT_GITHUBAPIKEY=${INPUT_GITHUBAPIKEY} -e INPUT_SKIPREPOSWITHOUTUSAGE=${INPUT_SKIPREPOSWITHOUTUSAGE} -it gha-billable-usage
 ```
 
 ## Common Errors
@@ -232,8 +232,8 @@ Traceback (most recent call last):
   File "/github-action-usage/python/main.py", line 92, in <module>
     main()
   File "/github-action-usage/python/main.py", line 30, in main
-    repoNames = getreposfromorganisation(org)
-  File "/github-action-usage/python/ghorg.py", line 27, in getreposfromorganisation
+    repoNames = getreposfromorganization(org)
+  File "/github-action-usage/python/ghorg.py", line 27, in getreposfromorganization
     totalPrivateRepos = json_data["total_private_repos"]
 KeyError: 'total_private_repos'
 ```
@@ -244,8 +244,8 @@ KeyError: 'total_private_repos'
 
 The following APIs are used:
 
-- [GitHub Organisation API](https://docs.github.com/en/rest/orgs/orgs#get-an-organization) - to get the number of repos
-- [GitHub List Organisational Repos API](https://docs.github.com/en/rest/repos/repos#list-organization-repositories) -
+- [GitHub Organization API](https://docs.github.com/en/rest/orgs/orgs#get-an-organization) - to get the number of repos
+- [GitHub List Organizational Repos API](https://docs.github.com/en/rest/repos/repos#list-organization-repositories) -
   to get the repo information
 - [GitHub List Repository Workflow API](https://docs.github.com/en/rest/actions/workflows#list-repository-workflows) -
   to get the repository workflows

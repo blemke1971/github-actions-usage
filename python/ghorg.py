@@ -14,7 +14,7 @@ logger = getlogger()
 
 
 # Get the repos for the org, and the total number
-def getreposfromorganisation(org):
+def getreposfromorganization(org):
     per_page = 100
     # get total repos
     api_url = 'https://api.github.com/orgs/{}'.format(org)

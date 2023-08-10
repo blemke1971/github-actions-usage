@@ -15,9 +15,8 @@ jobs:
         uses: ./
         # pass user input as arguments
         with:
-          organisation: ${{secrets.ORGANISATION}}
+          organization: ${{secrets.ORGANIZATION}}
           gitHubAPIKey: ${{secrets.GITHUBAPIKEY}} # default token in GitHub Workflow
           loglevel: debug
           raisealarmremainingminutes: 100
           skipReposWithoutUsage: false
-

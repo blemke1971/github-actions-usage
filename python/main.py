@@ -6,7 +6,7 @@ from prettytable import PrettyTable
 
 from customlogger import getlogger
 from ghaworkflows import getrepoworkflows
-from ghorg import getreposfromorganisation, getremainingdaysinbillingperiod, gettotalghausage
+from ghorg import getreposfromorganization, getremainingdaysinbillingperiod, gettotalghausage
 
 
 class RemainingMinutesThresholdError(Exception):
@@ -34,12 +34,12 @@ datetime_format = "%Y-%m-%d %H:%M"
 
 
 def main():
-    org = os.environ['INPUT_ORGANISATION']
+    org = os.environ['INPUT_ORGANIZATION']
 
     logger.info(f'*************** Getting repos for {org} ***************')
     # Get all the repo names for the org, will page results too
     # repo names are returned sorted
-    repo_names = getreposfromorganisation(org)
+    repo_names = getreposfromorganization(org)
     billing_days_left = getremainingdaysinbillingperiod(org)
     repos_usage = []
     total_costs = dict.fromkeys(['UBUNTU', 'MACOS', 'WINDOWS'], 0)
