@@ -134,10 +134,15 @@ def main():
     print(workflow_table)
 
     # output files as json
-    with open("summary.json", "w") as outfile:
-        outfile.write(summary_table.get_json_string())
-    with open("workflow.json", "w") as outfile:
-        outfile.write(wrokflow_table.get_json_string())
+    with open("summary.json", "w") as summaryJson:
+        summaryJson.write(summary_table.get_json_string())
+    with open("workflow.json", "w") as workflowJson:
+        workflowJson.write(workflow_table.get_json_string())
+
+    with open('summary.csv', 'w', newline='') as summaryCsv:
+        summaryCsv.write(summary_table.get_string())
+    with open('workflow.csv', 'w', newline='') as workflowCsv:
+        workflowCsv.write(workflow_table.get_string())
 
     # we should throw an error if we are running out of minutes as a warning
     # minutes buffer is how low the minutes should get before failing and raising an alarm
